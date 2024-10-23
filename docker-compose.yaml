@@ -1,0 +1,17 @@
+version: '3.9'
+
+services:
+  web:
+    build:
+      context: .
+    volumes:
+      - .:/app  # For development only.
+    ports:
+      - '8001:8001'
+    depends_on:
+      - db
+    command: "python /app/geodjango/manage.py runserver 0.0.0.0:8001"
+  db:
+    image: nickblah/postgis
+    environment:
+      - POSTGRES_HOST_AUTH_METHOD=trust  # For development only.
